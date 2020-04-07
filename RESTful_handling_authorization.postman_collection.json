@@ -1,0 +1,549 @@
+{
+	"info": {
+		"_postman_id": "bae18195-0508-4fb5-aa65-52f7d96e90d1",
+		"name": "RESTful handling authorization",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Users",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Mia Sophia Quiroz Soriano\",\n\t\"age\":6,\n\t\"email\":\"miasophia.qs@gmail.com\",\n\t\"password\":\"miasophia2407\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjYmVhMGQ4NTJhYTEyNzUzZWQ3ZWUiLCJpYXQiOjE1ODYyOTA4NTQsImV4cCI6MTU4Njg5NTY1NH0.MuO9xSrK6J2I0Dfb02S9rbpVUhWjQnjmjB7jUX8gNMA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Nodejs Handling Authentication\",\n\t\"description\": \"NodeJS app API for handling authentication\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjYmVhMGQ4NTJhYTEyNzUzZWQ3ZWUiLCJpYXQiOjE1ODYyOTA4NTQsImV4cCI6MTU4Njg5NTY1NH0.MuO9xSrK6J2I0Dfb02S9rbpVUhWjQnjmjB7jUX8gNMA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Single Post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjYmVhMGQ4NTJhYTEyNzUzZWQ3ZWUiLCJpYXQiOjE1ODYyOTA4NTQsImV4cCI6MTU4Njg5NTY1NH0.MuO9xSrK6J2I0Dfb02S9rbpVUhWjQnjmjB7jUX8gNMA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/posts/5e8ce3bd7a58912b8c3ae22c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"5e8ce3bd7a58912b8c3ae22c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comment on single post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjYmVhMGQ4NTJhYTEyNzUzZWQ3ZWUiLCJpYXQiOjE1ODYyOTA4NTQsImV4cCI6MTU4Njg5NTY1NH0.MuO9xSrK6J2I0Dfb02S9rbpVUhWjQnjmjB7jUX8gNMA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"comment\":\"Awesome! You made it easier\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/5e8ceb76d3534930790c549f/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"5e8ceb76d3534930790c549f",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch comment on single post",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"comment\":\"Nice article\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/5e8ceb76d3534930790c549f/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"5e8ceb76d3534930790c549f",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjYmVhMGQ4NTJhYTEyNzUzZWQ3ZWUiLCJpYXQiOjE1ODYyOTA4NTQsImV4cCI6MTU4Njg5NTY1NH0.MuO9xSrK6J2I0Dfb02S9rbpVUhWjQnjmjB7jUX8gNMA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Mathias Benjamin QS\",\n  \"password\":\"mathias1234\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjYmVhMGQ4NTJhYTEyNzUzZWQ3ZWUiLCJpYXQiOjE1ODYyOTA4NTQsImV4cCI6MTU4Njg5NTY1NH0.MuO9xSrK6J2I0Dfb02S9rbpVUhWjQnjmjB7jUX8gNMA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\":\"Django on Road\",\n  \"description\":\"Let's start with learning Django for web development now\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/5e8ce3bd7a58912b8c3ae22c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"5e8ce3bd7a58912b8c3ae22c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjZjk2YWYxNDk3ZjRlZGMxZmU0ZTMiLCJpYXQiOjE1ODYyOTg0OTAsImV4cCI6MTU4NjkwMzI5MH0.jXitnNz4XrYsBLBTCDB3HfRx2LvVj0JFEXZsxpWdmaY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\":\"goto  sleep\",\n  \"completed\":false\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjZmZkZmY0NWM4YzVkZGY1MDM0MWYiLCJpYXQiOjE1ODYyOTg4NjUsImV4cCI6MTU4NjkwMzY2NX0.56jtXDBe-VzM8rdhz9FVsvbGR2Bh5IyB_Bb8mz-LHWY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/5e8ce3111243b92aaa9f4661",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"5e8ce3111243b92aaa9f4661"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e178f47-3f34-456f-b738-ca330497c1f3",
+						"exec": [
+							"if(pm.response.code === 200 ){",
+							"    pm.environment.set('authtoken', pm.response.json().token)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"email\":\"miasophia.qs@gmail.com\",\n \"password\":\"miasophia2407\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout ",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjZmZkZmY0NWM4YzVkZGY1MDM0MWYiLCJpYXQiOjE1ODYyOTg4NjUsImV4cCI6MTU4NjkwMzY2NX0.56jtXDBe-VzM8rdhz9FVsvbGR2Bh5IyB_Bb8mz-LHWY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout All",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZThjZmZkZmY0NWM4YzVkZGY1MDM0MWYiLCJpYXQiOjE1ODYyOTk4NzIsImV4cCI6MTU4NjkwNDY3Mn0.gJ1Nec0ESN3msLEUPbikqpWRFQH81NWfEoyuzcOUmso",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/logoutall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"logoutall"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9c7ef4d3-64b2-49fe-b1db-65a8c6b26b1a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5df7dc9c-9a59-4ceb-befc-6dcef99063dd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
