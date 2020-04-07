@@ -1,6 +1,11 @@
 // Third
 const mongoose = require('mongoose');
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+// Local
+const envVars = require('../config/envVars');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -56,6 +61,47 @@ const UserSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+UserSchema.virtual('posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'author',
+});
+
+UserSchema.pre('save', async function (next) {
+  const user = this;
+  if (user.isModified('password')) {
+    salt = await bcrypt.genSalt(12);
+    user.password = await bcrypt.hash(user.password, salt);
+  }
+  next();
+});
+
+UserSchema.statics.checkValidCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error('Unable to login. User does not exist');
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+    throw new Error('Unable to login. User password does not match');
+  }
+
+  return user;
+};
+
+UserSchema.methods.newAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user.id.toString() }, envVars.SECRET_TOKEN, {
+    expiresIn: '7 days',
+  });
+  user.tokens = user.tokens.concat({ token });
+  console.log('CONCAT user.tokens:', user.tokens);
+  await user.save();
+  return token;
+};
 
 const User = mongoose.model('User', UserSchema);
 
